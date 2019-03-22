@@ -1,8 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <TextView
+        android:id="@+id/tv_course_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"/>
 
+    <LinearLayout
+        android:id="@+id/ll_course_tags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tv_course_name" >
 
+    </LinearLayout>
+
+    <!-- Teacher -->
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintTop_toBottomOf="@id/ll_course_tags"
+        app:layout_constraintLeft_toLeftOf="@id/tv_course_name" />
+
+    <TextView
+        android:id="@+id/tv_teacher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ll_course_tags"
+        app:layout_constraintLeft_toRightOf="icon" />
+
+    <!-- Classroom -->
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_teacher"
+        app:layout_constraintLeft_toLeftOf="@id/icon"
+        app:layout_constraintRight_toRightOf="@id/icon" />
+
+    <TextView
+        android:id="@+id/tv_classroom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_teacher"
+        app:layout_constraintLeft_toRightOf="icon" />
+
+    <!-- Student Count -->
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_classroom"
+        app:layout_constraintLeft_toLeftOf="@id/icon"
+        app:layout_constraintRight_toRightOf="@id/icon" />
+
+    <TextView
+        android:id="@+id/tv_student_cnt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_classroom"
+        app:layout_constraintLeft_toRightOf="icon" />
+
+    <!-- Schedule -->
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_student_cnt"
+        app:layout_constraintLeft_toLeftOf="@id/icon"
+        app:layout_constraintRight_toRightOf="@id/icon" />
+
+    <TextView
+        android:id="@+id/tv_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_student_cnt"
+        app:layout_constraintLeft_toRightOf="icon" />
+
+    <!-- Credit -->
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_schedule"
+        app:layout_constraintLeft_toLeftOf="@id/icon"
+        app:layout_constraintRight_toRightOf="@id/icon" />
+
+    <TextView
+        android:id="@+id/tv_credit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_schedule"
+        app:layout_constraintLeft_toRightOf="icon" />
+
+    <!-- Hours -->
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_credit"
+        app:layout_constraintLeft_toLeftOf="@id/icon"
+        app:layout_constraintRight_toRightOf="@id/icon" />
+
+    <TextView
+        android:id="@+id/tv_hours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_credit"
+        app:layout_constraintLeft_toRightOf="icon" />
+
+    
 </android.support.constraint.ConstraintLayout>
