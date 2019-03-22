@@ -104,20 +104,18 @@ public class LoginActivity extends ResponseActivity<User> {
 
     @Override
     public void onChanged(@Nullable User user) {
+        super.onChanged(user);
         isLogining = false;
         if (user != null) {
             if (user.status) {
-//                startActivity(new Intent(LoginActivity.this, TableFragment.class));
-//                finish();
+                startActivity(new Intent(LoginActivity.this, TableActivity.class));
                 showProgress(false);
-                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                finish();
             } else {
                 showProgress(false);
-                Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
             }
         } else {
             showProgress(false);
-            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
         }
     }
 

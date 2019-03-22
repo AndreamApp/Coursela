@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="?attr/toolBarColor"
+        app:titleTextColor="?attr/titleTextColor"
+        app:title="Week 1">
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/table_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v4.view.ViewPager>
+
+
+            <FrameLayout
+                android:id="@+id/fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/state_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="?attr/hintTextColor"
+                android:focusable="true"
+                android:clickable="true" />
+        </FrameLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>
