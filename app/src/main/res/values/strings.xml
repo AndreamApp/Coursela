@@ -3,4 +3,13 @@
     <string name="login">Login</string>
     <string name="login_stunum_hint">Student ID…</string>
     <string name="login_pass_hint">Password…</string>
+
+
+    <string name="login_error_input_pass">Please input password!</string>
+    <string name="login_error_shorter_6">Password can\'t be shorter than 6 characters!</string>
+    <string name="login_error_longer_16">Password can\'t be longer than 16 characters!</string>
+    <string name="login_error_input_stunum">Please input your Student ID!</string>
+    <string name="login_error_stunum_too_short">The student ID is too short!</string>
+    <string name="login_error_stunum_too_long">The student ID is too long!</string>
+    <string name="login_error_num_only">The student ID can only contain digits!</string>
 </resources>
