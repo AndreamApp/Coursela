@@ -3,16 +3,13 @@ package app.andream.coursela.bean;
 import java.util.List;
 
 /**
- * Created by Andream on 2019/3/25.
+ * Created by Andream on 2018/10/24.
  * Email: andreamapp@qq.com
  * Website: http://andreamapp.com
  */
-public class TeacherDetail extends Response {
-    public String name;
-    public String academy;
-    public String title;
-    public String email;
-    public List<Course> courses;
+public class Courses extends Response {
+
+    public List<Course> data;
 
     public class Course {
         public String course_name;

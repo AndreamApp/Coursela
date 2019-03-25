@@ -4,14 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import app.andream.coursela.R;
-import app.andream.coursela.bean.CoursePlan;
+import app.andream.coursela.bean.CoursePlans;
 
 /**
  * Created by Andream on 2019/3/25.
  * Email: andreamapp@qq.com
  * Website: http://andreamapp.com
  */
-public class CourseSearchActivity extends ResponseActivity<CoursePlan> {
+public class CourseSearchActivity extends ResponseActivity<CoursePlans> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

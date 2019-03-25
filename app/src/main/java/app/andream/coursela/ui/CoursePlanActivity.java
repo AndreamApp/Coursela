@@ -1,6 +1,5 @@
 package app.andream.coursela.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,14 +11,14 @@ import android.view.View;
 import android.widget.ListView;
 
 import app.andream.coursela.R;
-import app.andream.coursela.bean.CoursePlan;
+import app.andream.coursela.bean.CoursePlans;
 
 /**
  * Created by Andream on 2019/3/25.
  * Email: andreamapp@qq.com
  * Website: http://andreamapp.com
  */
-public class CoursePlanActivity extends ResponseActivity<CoursePlan>
+public class CoursePlanActivity extends ResponseActivity<CoursePlans>
     implements Toolbar.OnMenuItemClickListener {
 
     Toolbar toolbar;

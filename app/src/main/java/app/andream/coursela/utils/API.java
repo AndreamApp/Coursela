@@ -30,6 +30,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import app.andream.coursela.App;
+import app.andream.coursela.bean.Courses;
+import app.andream.coursela.bean.Table;
 import app.andream.coursela.bean.User;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
@@ -49,14 +51,18 @@ public class API {
     private static final String URL_LOGIN = "/api/v1/login";
     private static final String URL_LOGOUT = "/api/v1/logout";
     private static final String URL_GET_TABLE = "/api/v1/getTable";
-    private static final String URL_GET_GRADE = "/api/v1/getGrade";
-    private static final String URL_GET_EXAMS = "/api/v1/getExams";
-    private static final String URL_LIKE = "/api/v1/like";
-    private static final String URL_CRASH = "/api/v1/crash";
-    private static final String URL_UPLOAD_FEEDBACK = "/api/v1/uploadFeedback";
-    private static final String URL_GET_FEEDBACKS = "/api/v1/getFeedbacks";
-    private static final String URL_CHECK_UPDATE = "/api/v1/checkUpdate";
     private static final String URL_SEARCH_COURSE = "/api/v1/searchCourse";
+    // TODO: Add api
+    private static final String URL_COURSE_PLAN = "/api/v1/coursePlan";
+    private static final String URL_COURSE_DETAIL = "/api/v1/courseDetail";
+    private static final String URL_TEACHER_DETAIL = "/api/v1/teacherDetail";
+//    private static final String URL_GET_GRADE = "/api/v1/getGrade";
+//    private static final String URL_GET_EXAMS = "/api/v1/getExams";
+//    private static final String URL_LIKE = "/api/v1/like";
+//    private static final String URL_CRASH = "/api/v1/crash";
+//    private static final String URL_UPLOAD_FEEDBACK = "/api/v1/uploadFeedback";
+//    private static final String URL_GET_FEEDBACKS = "/api/v1/getFeedbacks";
+//    private static final String URL_CHECK_UPDATE = "/api/v1/checkUpdate";
 
 
     private static OkHttpClient.Builder trustAll() {
@@ -212,4 +218,76 @@ public class API {
         }
     }
 
+
+    public static Table getTable(boolean fromNetwork) throws ANError {
+        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_GET_TABLE)
+                .setPriority(Priority.LOW)
+                .setOkHttpClient(withCookie(App.context()));
+        if (!fromNetwork) {
+            builder.getResponseOnlyIfCached();
+        } else {
+            builder.getResponseOnlyFromNetwork();
+        }
+
+        ANRequest request = builder.build();
+        ANResponse response = request.executeForObject(Table.class);
+
+        if (response.isSuccess()) {
+            return (Table) response.getResult();
+        } else {
+            throw response.getError();
+        }
+    }
+
+
+    // TODO
+    public static Courses coursePlan() throws ANError {
+        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_COURSE_PLAN)
+                .setPriority(Priority.LOW)
+                .setOkHttpClient(withCookie(App.context()));
+
+        ANRequest request = builder.build();
+        ANResponse response = request.executeForObject(Courses.class);
+
+        if (response.isSuccess()) {
+            return (Courses) response.getResult();
+        } else {
+            throw response.getError();
+        }
+    }
+
+
+    // TODO
+    public static Courses courseDetail(String key) throws ANError {
+        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_COURSE_DETAIL)
+                .addQueryParameter("key", key)
+                .setPriority(Priority.LOW)
+                .setOkHttpClient(withCookie(App.context()));
+
+        ANRequest request = builder.build();
+        ANResponse response = request.executeForObject(Courses.class);
+
+        if (response.isSuccess()) {
+            return (Courses) response.getResult();
+        } else {
+            throw response.getError();
+        }
+    }
+
+    // TODO
+    public static Courses teacherDetail(String key) throws ANError {
+        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_TEACHER_DETAIL)
+                .addQueryParameter("key", key)
+                .setPriority(Priority.LOW)
+                .setOkHttpClient(withCookie(App.context()));
+
+        ANRequest request = builder.build();
+        ANResponse response = request.executeForObject(Courses.class);
+
+        if (response.isSuccess()) {
+            return (Courses) response.getResult();
+        } else {
+            throw response.getError();
+        }
+    }
 }

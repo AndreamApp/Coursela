@@ -7,14 +7,13 @@ import java.util.List;
  * Email: andreamapp@qq.com
  * Website: http://andreamapp.com
  */
-public class TeacherDetail extends Response {
-    public String name;
-    public String academy;
-    public String title;
-    public String email;
-    public List<Course> courses;
+public class CoursePlans extends Response {
+
+    public List<Course> data;
 
     public class Course {
+        public String status; // course is pending / success / failed
+
         public String course_name;
         public String course_code;
         public String credit;
