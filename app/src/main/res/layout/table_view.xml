@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/table_weekday_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:layout_height="wrap_content"
+            android:text="Mon" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:layout_height="wrap_content"
+            android:text="Tue" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:layout_height="wrap_content"
+            android:text="Wed" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:layout_height="wrap_content"
+            android:text="Thu" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:layout_height="wrap_content"
+            android:text="Fri" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:layout_height="wrap_content"
+            android:text="Sat" />
+
+        <TextView
+            style="@style/TableHeaderTextView"
+            android:layout_height="wrap_content"
+            android:text="Sun" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/table_weekday_layout">
+
+        <LinearLayout
+            android:id="@+id/table_content_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                style="@style/TableColumnLinearLayout"
+                android:id="@+id/table_layout_weekday_1" />
+
+            <LinearLayout
+                style="@style/TableColumnLinearLayout"
+                android:id="@+id/table_layout_weekday_2" />
+
+            <LinearLayout
+                style="@style/TableColumnLinearLayout"
+                android:id="@+id/table_layout_weekday_3" />
+
+            <LinearLayout
+                style="@style/TableColumnLinearLayout"
+                android:id="@+id/table_layout_weekday_4" />
+
+            <LinearLayout
+                style="@style/TableColumnLinearLayout"
+                android:id="@+id/table_layout_weekday_5" />
+
+            <LinearLayout
+                style="@style/TableColumnLinearLayout"
+                android:id="@+id/table_layout_weekday_6" />
+
+            <LinearLayout
+                style="@style/TableColumnLinearLayout"
+                android:id="@+id/table_layout_weekday_7" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

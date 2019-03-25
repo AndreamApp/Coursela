@@ -12,4 +12,7 @@
     <string name="login_error_stunum_too_short">The student ID is too short!</string>
     <string name="login_error_stunum_too_long">The student ID is too long!</string>
     <string name="login_error_num_only">The student ID can only contain digits!</string>
+    <string name="state_loading">Loading...</string>
+    <string name="state_empty">No schedule now.</string>
+    <string name="state_failed">Failed. Please try again</string>
 </resources>
