@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/ll_course_tags"
-        app:layout_constraintLeft_toRightOf="icon" />
+        app:layout_constraintLeft_toRightOf="@id/icon" />
 
     <!-- Classroom -->
 
@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_teacher"
-        app:layout_constraintLeft_toRightOf="icon" />
+        app:layout_constraintLeft_toRightOf="@id/icon" />
 
     <!-- Student Count -->
 
@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_classroom"
-        app:layout_constraintLeft_toRightOf="icon" />
+        app:layout_constraintLeft_toRightOf="@id/icon" />
 
     <!-- Schedule -->
 
@@ -81,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_student_cnt"
-        app:layout_constraintLeft_toRightOf="icon" />
+        app:layout_constraintLeft_toRightOf="@id/icon" />
 
     <!-- Credit -->
 
@@ -97,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_schedule"
-        app:layout_constraintLeft_toRightOf="icon" />
+        app:layout_constraintLeft_toRightOf="@id/icon" />
 
     <!-- Hours -->
 
@@ -113,7 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_credit"
-        app:layout_constraintLeft_toRightOf="icon" />
+        app:layout_constraintLeft_toRightOf="@id/icon" />
 
 
 </android.support.constraint.ConstraintLayout>

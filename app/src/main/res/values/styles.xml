@@ -3,6 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
+        <item name="toolBarColor">@color/colorPrimary</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -11,9 +12,9 @@
         <item name="foreTextColor">#c0f8f8f8</item>
         <item name="hintTextColor">#c0c0c0c0</item>
 
-        <item name="android:windowBackground">@drawable/window_bg_translucent</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowShowWallpaper">true</item>
+        <item name="android:windowBackground">@drawable/window_bg</item>
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+        <!--<item name="android:windowShowWallpaper">true</item>-->
     </style>
 
 </resources>

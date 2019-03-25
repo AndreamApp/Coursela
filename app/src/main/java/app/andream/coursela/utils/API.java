@@ -30,8 +30,11 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import app.andream.coursela.App;
+import app.andream.coursela.bean.CourseDetail;
+import app.andream.coursela.bean.CoursePlans;
 import app.andream.coursela.bean.Courses;
 import app.andream.coursela.bean.Table;
+import app.andream.coursela.bean.TeacherDetail;
 import app.andream.coursela.bean.User;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
@@ -241,16 +244,16 @@ public class API {
 
 
     // TODO
-    public static Courses coursePlan() throws ANError {
-        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_COURSE_PLAN)
+    public static CoursePlans coursePlan() throws ANError {
+        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_GET_TABLE)
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(withCookie(App.context()));
 
         ANRequest request = builder.build();
-        ANResponse response = request.executeForObject(Courses.class);
+        ANResponse response = request.executeForObject(CoursePlans.class);
 
         if (response.isSuccess()) {
-            return (Courses) response.getResult();
+            return (CoursePlans) response.getResult();
         } else {
             throw response.getError();
         }
@@ -258,34 +261,34 @@ public class API {
 
 
     // TODO
-    public static Courses courseDetail(String key) throws ANError {
+    public static CourseDetail courseDetail(String key) throws ANError {
         ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_COURSE_DETAIL)
                 .addQueryParameter("key", key)
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(withCookie(App.context()));
 
         ANRequest request = builder.build();
-        ANResponse response = request.executeForObject(Courses.class);
+        ANResponse response = request.executeForObject(CourseDetail.class);
 
         if (response.isSuccess()) {
-            return (Courses) response.getResult();
+            return (CourseDetail) response.getResult();
         } else {
             throw response.getError();
         }
     }
 
     // TODO
-    public static Courses teacherDetail(String key) throws ANError {
+    public static TeacherDetail teacherDetail(String key) throws ANError {
         ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_TEACHER_DETAIL)
                 .addQueryParameter("key", key)
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(withCookie(App.context()));
 
         ANRequest request = builder.build();
-        ANResponse response = request.executeForObject(Courses.class);
+        ANResponse response = request.executeForObject(TeacherDetail.class);
 
         if (response.isSuccess()) {
-            return (Courses) response.getResult();
+            return (TeacherDetail) response.getResult();
         } else {
             throw response.getError();
         }

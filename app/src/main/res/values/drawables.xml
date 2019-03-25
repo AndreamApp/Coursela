@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <drawable name="window_bg_translucent">#80000000</drawable>
+    <drawable name="window_bg">#fff0f0f0</drawable>
 </resources>
