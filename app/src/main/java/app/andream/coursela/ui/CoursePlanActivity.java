@@ -31,25 +31,19 @@ import app.andream.coursela.utils.API;
  * Website: http://andreamapp.com
  */
 public class CoursePlanActivity extends ResponseActivity<CoursePlans>
-    implements Toolbar.OnMenuItemClickListener,
-        SwipeRefreshLayout.OnRefreshListener
+    implements Toolbar.OnMenuItemClickListener
 {
 
     Toolbar toolbar;
-    SwipeRefreshLayout refresh;
-    RecyclerView planRecyclerView;
-    View fab;
-
-    CoursePlanAdapter adapter;
+    CoursePlanFragment planFragment;
+    // tableFragment
+    // searchFragment
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_plan);
         initViews();
-        // init data
-        refresh.setRefreshing(true);
-        onRefresh();
     }
 
     private void initViews(){
@@ -57,58 +51,31 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
         toolbar.setOnMenuItemClickListener(this);
         setSupportActionBar(toolbar);
 
-        refresh = findViewById(R.id.refresh);
-        refresh.setOnRefreshListener(this);
+        planFragment = new CoursePlanFragment();
 
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener( v -> {
-            onAddClicked();
-        });
-
-        planRecyclerView = findViewById(R.id.lv_plan);
-        adapter = new CoursePlanAdapter(course -> {
-            startActivity(new Intent(CoursePlanActivity.this, CourseDetailActivity.class));
-        });
-        planRecyclerView.setAdapter(adapter);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        planRecyclerView.setLayoutManager(llm);
-        planRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                refresh.setEnabled(llm.findFirstCompletelyVisibleItemPosition() == 0);
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
-    }
-
-    @Override
-    public void onRefresh() {
-        new PlanTask().execute();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment, planFragment)
+                .commit();
     }
 
     @Override
     public void onChanged(@Nullable CoursePlans plans) {
         super.onChanged(plans);
-        refresh.setRefreshing(false);
-        if(plans != null && plans.status) {
-            adapter.setPlans(plans);
-        }
     }
 
-    public void onAddClicked() {}
-
     public void onSearch(String key) {
-        Intent i = new Intent(this, CourseSearchActivity.class);
-        startActivityForResult(i, 100);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment, planFragment)
+                .commit();
     }
 
     public void onScheduleClicked() {
-        startActivity(new Intent(CoursePlanActivity.this, TableActivity.class));
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment, planFragment)
+                .commit();
     }
 
 
@@ -160,100 +127,4 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
         return true;
     }
 
-
-    public class PlanTask extends AsyncTask<String, Void, CoursePlans> {
-        @Override
-        protected CoursePlans doInBackground(String... strings) {
-            CoursePlans plans = null;
-            try {
-                plans = API.coursePlan();
-            } catch (ANError anError) {
-                anError.printStackTrace();
-            }
-            return plans;
-        }
-
-        @Override
-        protected void onPostExecute(CoursePlans plans) {
-            onChanged(plans);
-        }
-    }
-
-    public interface OnPlanClicked {
-        void onPlanClicked(CoursePlans.Course course);
-    }
-
-    public static class CoursePlanAdapter extends RecyclerView.Adapter<CoursePlanAdapter.ViewHolder> {
-        CoursePlans plans;
-        OnPlanClicked listener;
-
-        public CoursePlanAdapter(OnPlanClicked listener) {
-            this.listener = listener;
-        }
-
-        public CoursePlans getPlans() {
-            return plans;
-        }
-
-        public void setPlans(CoursePlans plans) {
-            this.plans = plans;
-            notifyDataSetChanged();
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_course_plan, parent, false);
-            return new ViewHolder(v);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-            holder.bind(plans.data.get(i));
-        }
-
-        @Override
-        public int getItemCount() {
-            if (plans == null || plans.data == null) {
-                return 0;
-            }
-            return plans.data.size();
-        }
-
-
-        // Provide a reference to the views for each data item
-        // Complex data items may need more than one view per item, and
-        // you provide access to all the views for a data item in a view holder
-        class ViewHolder extends RecyclerView.ViewHolder {
-            // each data item is just a string in this case
-            TextView name, teacher, stuCnt;
-            ImageView status;
-            CoursePlans.Course course;
-
-            ViewHolder(View v) {
-                super(v);
-                v.setOnClickListener(view -> {
-                    if(listener != null) {
-                        listener.onPlanClicked(course);
-                    }
-                });
-                name = v.findViewById(R.id.tv_course_name);
-                teacher = v.findViewById(R.id.tv_course_teacher);
-                stuCnt = v.findViewById(R.id.tv_course_stu_cnt);
-                status = v.findViewById(R.id.course_state);
-            }
-
-            void bind(CoursePlans.Course course) {
-                this.course = course;
-                name.setText(course.course_name);
-                teacher.setText(course.teacher + " " + course.academy);
-                stuCnt.setText(course.student_cnt + " people");
-                status.setImageResource(
-                        "success".equals(course.status) ? R.drawable.state_green
-                        : "failed".equals(course.status) ? R.drawable.state_red
-                        : R.drawable.state_yellow
-                );
-            }
-        }
-    }
 }
