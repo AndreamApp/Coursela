@@ -9,6 +9,8 @@ import java.util.List;
  */
 public class TeacherDetail extends Response {
 
+    public Teacher data;
+
     public class Teacher {
 
         public String name;

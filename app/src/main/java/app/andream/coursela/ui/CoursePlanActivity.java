@@ -114,6 +114,7 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
 
     public void expandSearch() {
         searchItem.expandActionView();
+        searchItem.getActionView().requestFocus();
     }
 
 }

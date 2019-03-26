@@ -26,6 +26,7 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
     TextView courseName, courseCode, academy, teacher, classroom, stucnt, schedule, credit, hours;
 
     String course_code, class_no;
+    CourseDetail courseDetail;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +50,9 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
         credit = findViewById(R.id.tv_credit);
         hours = findViewById(R.id.tv_hours);
         teacher.setOnClickListener(v -> {
-            // TODO: transfer teacher info
-            startActivity(new Intent(CourseDetailActivity.this, TeacherDetailActivity.class));
+            if(courseDetail != null && courseDetail.data != null) {
+                onTeacherClicked(courseDetail.data.teacher, courseDetail.data.academy);
+            }
         });
     }
 
@@ -90,6 +92,7 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
             });
         }
         else {
+            this.courseDetail = detail;
             CourseDetail.Course cd = detail.data;
             courseName.setText(cd.course_name);
             courseCode.setText(cd.course_code);
@@ -118,6 +121,13 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
             credit.setText(cd.credit);
             hours.setText(cd.hours_all);
         }
+    }
+
+    public void onTeacherClicked(String name, String academy) {
+        Intent i = new Intent(CourseDetailActivity.this, TeacherDetailActivity.class);
+        i.putExtra("name", name);
+        i.putExtra("academy", academy);
+        startActivity(i);
     }
 
     public class DetailTask extends AsyncTask<String, Void, CourseDetail> {

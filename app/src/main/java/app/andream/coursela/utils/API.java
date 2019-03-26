@@ -260,8 +260,6 @@ public class API {
         }
     }
 
-
-    // TODO
     public static CourseDetail courseDetail(String code, String no) throws ANError {
         ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_COURSE_DETAIL)
                 .addQueryParameter("code", code)
@@ -280,9 +278,10 @@ public class API {
     }
 
     // TODO
-    public static TeacherDetail teacherDetail(String key) throws ANError {
+    public static TeacherDetail teacherDetail(String name, String academy) throws ANError {
         ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_TEACHER_DETAIL)
-                .addQueryParameter("key", key)
+                .addQueryParameter("name", name)
+                .addQueryParameter("academy", academy)
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(withCookie(App.context()));
 
