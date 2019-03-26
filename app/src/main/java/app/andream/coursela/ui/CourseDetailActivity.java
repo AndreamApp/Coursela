@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +29,10 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
 
     String course_code, class_no;
     CourseDetail courseDetail;
+
+    private static final int STATE_PROGRESS = 0;
+    private static final int STATE_SUCCESS = 1;
+    private static final int STATE_FAILED = 2;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,19 +80,25 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
         });
     }
 
-    public void setProgress(boolean state) {
-        if(state) {
+    public void setState(int state) {
+        if(STATE_PROGRESS == state) {
             progress.setVisibility(View.VISIBLE);
             findViewById(R.id.ll).setVisibility(View.INVISIBLE);
+            hideState();
+        }
+        else if(STATE_SUCCESS == state){
+            progress.setVisibility(View.GONE);
+            findViewById(R.id.ll).setVisibility(View.VISIBLE);
+            hideState();
         }
         else {
             progress.setVisibility(View.GONE);
-            findViewById(R.id.ll).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll).setVisibility(View.INVISIBLE);
         }
     }
 
     public void refresh() {
-        setProgress(true);
+        setState(STATE_PROGRESS);
         new DetailTask().execute(course_code, class_no);
     }
 
@@ -104,13 +115,15 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
     @Override
     public void onChanged(@Nullable CourseDetail detail) {
         super.onChanged(detail);
-        setProgress(false);
         if(detail == null || !detail.status) {
+            setState(STATE_FAILED);
             showState(R.string.state_failed, v -> {
                 refresh();
             });
+            Snackbar.make(progress, "Network failed!", Snackbar.LENGTH_SHORT).show();
         }
         else {
+            setState(STATE_SUCCESS);
             this.courseDetail = detail;
             CourseDetail.Course cd = detail.data;
             courseName.setText(cd.course_name);

@@ -86,7 +86,7 @@ public class TableActivity extends ResponseActivity<CourseIndexWrapper>
     @Override
     protected void onStart() {
         super.onStart();
-        refresh(false);
+        refresh(true);
     }
 
     public void setVisiblePage(int page) {

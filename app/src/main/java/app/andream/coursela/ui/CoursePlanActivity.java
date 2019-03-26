@@ -171,6 +171,7 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
                 ps.classroom = s.classroom;
                 ps.classtime = s.classtime;
                 ps.weeks = s.weeks;
+                alter.schedule.add(ps);
             }
             courses.add(alter);
         }
