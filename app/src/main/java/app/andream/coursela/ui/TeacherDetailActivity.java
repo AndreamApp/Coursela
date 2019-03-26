@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -90,10 +91,21 @@ public class TeacherDetailActivity extends ResponseActivity<TeacherDetail> {
                     name[i].setText(t.courses.get(i).course_name);
                     code[i].setVisibility(View.VISIBLE);
                     name[i].setVisibility(View.VISIBLE);
+                    int finalI = i;
+                    code[i].setOnClickListener(v -> {
+                        String key = code[finalI].getText().toString();
+                        if(!TextUtils.isEmpty(key)) {
+                            Intent it = new Intent(TeacherDetailActivity.this, CoursePlanActivity.class);
+                            it.putExtra("search_key", key);
+                            startActivity(it);
+                            finish();
+                        }
+                    });
                 }
                 for(int i = t.courses.size(); i < 3; i++) {
                     code[i].setVisibility(View.GONE);
                     name[i].setVisibility(View.GONE);
+                    code[i].setOnClickListener(null);
                 }
             }
         }

@@ -1,6 +1,7 @@
 package app.andream.coursela.ui;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
@@ -9,11 +10,15 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.androidnetworking.error.ANError;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import app.andream.coursela.R;
 import app.andream.coursela.bean.CoursePlans;
 import app.andream.coursela.bean.Courses;
+import app.andream.coursela.utils.API;
 
 /**
  * Created by Andream on 2019/3/25.
@@ -37,6 +42,10 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
         initViews();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     private void initViews(){
         toolbar = findViewById(R.id.tool_bar);
@@ -101,7 +110,6 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // TODO
                 onSearch(query);
                 return false;
             }
@@ -116,9 +124,9 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
 
         String key = getIntent().getStringExtra("search_key");
         if(!TextUtils.isEmpty(key)) {
-            searchView.setQuery(key, false);
             expandSearch();
-            onSearch(key);
+            searchView.setQuery(key, true);
+//            onSearch(key);
         }
 
         return true;
@@ -140,11 +148,61 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
     }
 
     public void onCourseAdded(List<Courses.Course> checkedCourses) {
+        if(checkedCourses.size() <= 0) {
+            return;
+        }
         // TODO: put Courses to cloud
+        List<CoursePlans.Course> courses = new ArrayList<>();
+        for(Courses.Course c : checkedCourses) {
+            CoursePlans.Course alter = new CoursePlans.Course();
+            alter.course_name = c.course_name;
+            alter.course_code = c.course_code;
+            alter.credit = c.credit;
+            alter.hours_all = c.hours_all;
+            alter.teacher = c.teacher;
+            alter.class_no = c.class_no;
+            alter.academy = c.academy;
+            alter.class_detail = c.class_detail;
+            alter.is_exp = c.is_exp;
+            alter.student_cnt = c.student_cnt;
+            alter.schedule = new ArrayList<>();
+            for(Courses.Course.Schedule s : c.schedule) {
+                CoursePlans.Course.Schedule ps = new CoursePlans.Course.Schedule();
+                ps.classroom = s.classroom;
+                ps.classtime = s.classtime;
+                ps.weeks = s.weeks;
+            }
+            courses.add(alter);
+        }
+
+        CoursePlans originPlan = planFragment.adapter.getPlans();
+        if(originPlan != null && originPlan.data != null && originPlan.data.size() > 0) {
+            courses.addAll(originPlan.data);
+        }
+
         searchItem.collapseActionView();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment, planFragment)
                 .commit();
+        new PutPlanTask().execute(courses);
+    }
+
+    public class PutPlanTask extends AsyncTask<List<CoursePlans.Course>, Void, CoursePlans> {
+        @Override
+        protected CoursePlans doInBackground(List<CoursePlans.Course>... plans) {
+            CoursePlans res = null;
+            try {
+                res = API.putCoursePlan(plans[0]);
+            } catch (ANError anError) {
+                anError.printStackTrace();
+            }
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(CoursePlans plans) {
+            onChanged(plans);
+        }
     }
 }

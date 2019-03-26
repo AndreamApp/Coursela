@@ -41,6 +41,7 @@ import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -56,7 +57,8 @@ public class API {
     private static final String URL_GET_TABLE = "/api/v1/getTable";
     private static final String URL_SEARCH_COURSE = "/api/v1/searchCourse";
     // TODO: Add api
-    private static final String URL_COURSE_PLAN = "/api/v1/coursePlan";
+    private static final String URL_PUT_COURSE = "/api/v1/putCoursePlan";
+    private static final String URL_COURSE_PLAN = "/api/v1/getCoursePlan";
     private static final String URL_COURSE_DETAIL = "/api/v1/courseDetail";
     private static final String URL_TEACHER_DETAIL = "/api/v1/teacherDetail";
 //    private static final String URL_GET_GRADE = "/api/v1/getGrade";
@@ -223,7 +225,7 @@ public class API {
 
 
     public static Table getTable(boolean fromNetwork) throws ANError {
-        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_GET_TABLE)
+        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_COURSE_PLAN)
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(withCookie(App.context()));
         if (!fromNetwork) {
@@ -244,25 +246,23 @@ public class API {
 
 
     // TODO
-    public static CoursePlans coursePlan() throws ANError {
-        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_SEARCH_COURSE)
-                .addQueryParameter("key", "软件")
-                .setPriority(Priority.LOW)
-                .setOkHttpClient(withCookie(App.context()));
-
-        ANRequest request = builder.build();
-        ANResponse response = request.executeForObject(CoursePlans.class);
-
-        if (response.isSuccess()) {
-            return (CoursePlans) response.getResult();
+    public static CoursePlans coursePlan() throws IOException {
+        OkHttpClient client = withCookie(App.context());
+        Request request = new Request.Builder()
+                .url(HOST + URL_COURSE_PLAN)
+                .build();
+        Response response = client.newCall(request).execute();
+        if (response.code() == 200) {
+            return new Gson().fromJson(response.body().string(), CoursePlans.class);
         } else {
-            throw response.getError();
+            throw new IOException("Response with code " + response.code());
         }
     }
 
-    public static CoursePlans putCoursePlan() throws ANError {
-        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_SEARCH_COURSE)
-                .addQueryParameter("key", "软件")
+    public static CoursePlans putCoursePlan(List<CoursePlans.Course> courses) throws ANError {
+        String json = new Gson().toJson(courses);
+        ANRequest.PostRequestBuilder builder = AndroidNetworking.post(HOST + URL_PUT_COURSE)
+                .addBodyParameter("courses", json)
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(withCookie(App.context()));
 
@@ -280,6 +280,8 @@ public class API {
         ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_COURSE_DETAIL)
                 .addQueryParameter("code", code)
                 .addQueryParameter("no", no)
+                .doNotCacheResponse()
+                .getResponseOnlyFromNetwork()
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(withCookie(App.context()));
 

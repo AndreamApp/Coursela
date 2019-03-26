@@ -61,6 +61,7 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
                 Intent i = new Intent(CourseDetailActivity.this, CoursePlanActivity.class);
                 i.putExtra("search_key", key);
                 startActivity(i);
+                finish();
             }
         });
         academy.setOnClickListener(v -> {
@@ -69,6 +70,7 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
                 Intent i = new Intent(CourseDetailActivity.this, CoursePlanActivity.class);
                 i.putExtra("search_key", key);
                 startActivity(i);
+                finish();
             }
         });
     }

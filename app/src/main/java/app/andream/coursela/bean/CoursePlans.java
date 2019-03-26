@@ -11,7 +11,7 @@ public class CoursePlans extends Response {
 
     public List<Course> data;
 
-    public class Course {
+    public static class Course {
         public String status; // course is pending / success / failed
 
         public String course_name;
@@ -28,7 +28,7 @@ public class CoursePlans extends Response {
 
         public List<Schedule> schedule;
 
-        public class Schedule{
+        public static class Schedule{
             public String weeks;
             public String classtime;
             public String classroom;

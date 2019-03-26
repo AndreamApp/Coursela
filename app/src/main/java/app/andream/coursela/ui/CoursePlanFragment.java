@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.androidnetworking.error.ANError;
 
+import java.io.IOException;
+
 import app.andream.coursela.R;
 import app.andream.coursela.bean.CoursePlans;
 import app.andream.coursela.utils.API;
@@ -114,8 +116,8 @@ public class CoursePlanFragment extends Fragment
             CoursePlans plans = null;
             try {
                 plans = API.coursePlan();
-            } catch (ANError anError) {
-                anError.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
             return plans;
         }
