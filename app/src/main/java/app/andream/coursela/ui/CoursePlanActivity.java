@@ -160,6 +160,7 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
         List<CoursePlans.Course> courses = new ArrayList<>();
         for(Courses.Course c : checkedCourses) {
             CoursePlans.Course alter = new CoursePlans.Course();
+            alter.status = "pending";
             alter.course_name = c.course_name;
             alter.course_code = c.course_code;
             alter.credit = c.credit;

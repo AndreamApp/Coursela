@@ -1,6 +1,7 @@
 package app.andream.coursela.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import com.androidnetworking.error.ANError;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.List;
 
 import app.andream.coursela.R;
 import app.andream.coursela.bean.CoursePlans;
@@ -75,11 +78,33 @@ public class CoursePlanFragment extends Fragment
         });
 
         planRecyclerView = v.findViewById(R.id.lv_plan);
-        adapter = new CoursePlanAdapter(course -> {
-            Intent i = new Intent(getActivity(), CourseDetailActivity.class);
-            i.putExtra("course_code", course.course_code);
-            i.putExtra("class_no", course.class_no);
-            startActivity(i);
+        adapter = new CoursePlanAdapter(new OnPlanClicked() {
+            @Override
+            public void onPlanClicked(CoursePlans.Course course) {
+                Intent i = new Intent(getActivity(), CourseDetailActivity.class);
+                i.putExtra("course_code", course.course_code);
+                i.putExtra("class_no", course.class_no);
+                startActivity(i);
+            }
+
+            @Override
+            public void onPlanLongClicked(CoursePlans.Course course) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Delete")
+                        .setMessage("Are you sure to delete this course plan?")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                CoursePlans plans = adapter.getPlans();
+                                if(plans != null && plans.data != null) {
+                                    plans.data.remove(course);
+                                    new PutPlanTask().execute(plans.data);
+                                }
+                            }
+                        })
+                        .setNegativeButton("CANCLE", null)
+                        .show();
+            }
         });
         planRecyclerView.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -146,6 +171,7 @@ public class CoursePlanFragment extends Fragment
 
     public interface OnPlanClicked {
         void onPlanClicked(CoursePlans.Course course);
+        void onPlanLongClicked(CoursePlans.Course course);
     }
 
     public static class CoursePlanAdapter extends RecyclerView.Adapter<CoursePlanAdapter.ViewHolder> {
@@ -202,6 +228,13 @@ public class CoursePlanFragment extends Fragment
                         listener.onPlanClicked(course);
                     }
                 });
+                // TODO
+                v.setOnLongClickListener(view -> {
+                    if(listener != null) {
+                        listener.onPlanLongClicked(course);
+                    }
+                    return false;
+                });
                 name = v.findViewById(R.id.tv_course_name);
                 teacher = v.findViewById(R.id.tv_course_teacher);
                 stuCnt = v.findViewById(R.id.tv_course_stu_cnt);
@@ -219,6 +252,23 @@ public class CoursePlanFragment extends Fragment
                                 : R.drawable.state_yellow
                 );
             }
+        }
+    }
+    public class PutPlanTask extends AsyncTask<List<CoursePlans.Course>, Void, CoursePlans> {
+        @Override
+        protected CoursePlans doInBackground(List<CoursePlans.Course>... plans) {
+            CoursePlans res = null;
+            try {
+                res = API.putCoursePlan(plans[0]);
+            } catch (ANError anError) {
+                anError.printStackTrace();
+            }
+            return res;
+        }
+
+        @Override
+        protected void onPostExecute(CoursePlans plans) {
+            onChanged(plans);
         }
     }
 }
