@@ -53,6 +53,7 @@
                     android:textColor="?attr/foreTextColor"
                     android:textColorHint="?attr/hintTextColor"
                     android:inputType="numberDecimal"
+                    android:text="20151597"
                     android:singleLine="true"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -75,6 +76,7 @@
                     android:textColor="?attr/foreTextColor"
                     android:textColorHint="?attr/hintTextColor"
                     android:maxLines="1"
+                    android:text="237231"
                     android:singleLine="true"/>
 
             </android.support.design.widget.TextInputLayout>

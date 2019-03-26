@@ -66,7 +66,10 @@ public class CoursePlanFragment extends Fragment
 
         planRecyclerView = v.findViewById(R.id.lv_plan);
         adapter = new CoursePlanAdapter(course -> {
-            startActivity(new Intent(getActivity(), CourseDetailActivity.class));
+            Intent i = new Intent(getActivity(), CourseDetailActivity.class);
+            i.putExtra("course_code", course.course_code);
+            i.putExtra("class_no", course.class_no);
+            startActivity(i);
         });
         planRecyclerView.setAdapter(adapter);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());

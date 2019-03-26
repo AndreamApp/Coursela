@@ -30,7 +30,7 @@
         android:layout_margin="32dp"
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_check"
-        android:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:fabSize="auto"

@@ -9,23 +9,28 @@ import java.util.List;
  */
 public class CourseDetail extends Response {
 
-    public String course_name;
-    public String course_code;
-    public String credit;
-    public String hours_all;
-    public String teacher;
+    public Course data;
 
-    public String class_no;
-    public String academy;
-    public String class_detail;
-    public boolean is_exp;
-    public String student_cnt;
+    public class Course {
 
-    public List<Schedule> schedule;
+        public String course_name;
+        public String course_code;
+        public String credit;
+        public String hours_all;
+        public String teacher;
 
-    public class Schedule{
-        public String weeks;
-        public String classtime;
-        public String classroom;
+        public String class_no;
+        public String academy;
+        public String class_detail;
+        public boolean is_exp;
+        public String student_cnt;
+
+        public List<Schedule> schedule;
+
+        public class Schedule{
+            public String weeks;
+            public String classtime;
+            public String classroom;
+        }
     }
 }

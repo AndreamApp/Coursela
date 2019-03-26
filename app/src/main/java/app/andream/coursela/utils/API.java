@@ -245,7 +245,8 @@ public class API {
 
     // TODO
     public static CoursePlans coursePlan() throws ANError {
-        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_GET_TABLE)
+        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_SEARCH_COURSE)
+                .addQueryParameter("key", "软件")
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(withCookie(App.context()));
 
@@ -261,9 +262,10 @@ public class API {
 
 
     // TODO
-    public static CourseDetail courseDetail(String key) throws ANError {
+    public static CourseDetail courseDetail(String code, String no) throws ANError {
         ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_COURSE_DETAIL)
-                .addQueryParameter("key", key)
+                .addQueryParameter("code", code)
+                .addQueryParameter("no", no)
                 .setPriority(Priority.LOW)
                 .setOkHttpClient(withCookie(App.context()));
 
