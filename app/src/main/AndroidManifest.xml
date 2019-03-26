@@ -19,9 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.TableActivity" />
-        <activity android:name=".ui.CoursePlanActivity" />
+        <activity android:name=".ui.CoursePlanActivity"
+            android:launchMode="singleTop"
+            />
         <activity android:name=".ui.CourseDetailActivity" />
-        <activity android:name=".ui.CourseSearchActivity" />
         <activity android:name=".ui.TeacherDetailActivity" />
     </application>
 

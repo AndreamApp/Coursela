@@ -14,6 +14,7 @@ import app.andream.coursela.R;
 import app.andream.coursela.bean.CourseDetail;
 import app.andream.coursela.bean.User;
 import app.andream.coursela.utils.API;
+import app.andream.coursela.utils.ActivityLauncher;
 
 /**
  * Created by Andream on 2019/3/25.
@@ -52,6 +53,22 @@ public class CourseDetailActivity extends ResponseActivity<CourseDetail> {
         teacher.setOnClickListener(v -> {
             if(courseDetail != null && courseDetail.data != null) {
                 onTeacherClicked(courseDetail.data.teacher, courseDetail.data.academy);
+            }
+        });
+        courseCode.setOnClickListener(v -> {
+            String key = courseCode.getText().toString();
+            if(!TextUtils.isEmpty(key)) {
+                Intent i = new Intent(CourseDetailActivity.this, CoursePlanActivity.class);
+                i.putExtra("search_key", key);
+                startActivity(i);
+            }
+        });
+        academy.setOnClickListener(v -> {
+            String key = academy.getText().toString();
+            if(!TextUtils.isEmpty(key)) {
+                Intent i = new Intent(CourseDetailActivity.this, CoursePlanActivity.class);
+                i.putExtra("search_key", key);
+                startActivity(i);
             }
         });
     }

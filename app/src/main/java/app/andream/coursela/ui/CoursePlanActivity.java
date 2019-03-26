@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import app.andream.coursela.R;
 import app.andream.coursela.bean.CoursePlans;
+import app.andream.coursela.bean.Courses;
 
 /**
  * Created by Andream on 2019/3/25.
@@ -22,9 +26,9 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
 
     Toolbar toolbar;
     CoursePlanFragment planFragment;
+    CourseSearchFragment searchFragment;
     MenuItem searchItem;
     // tableFragment
-    // searchFragment
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,12 +37,14 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
         initViews();
     }
 
+
     private void initViews(){
         toolbar = findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         toolbar.setOnMenuItemClickListener(this);
 
         planFragment = new CoursePlanFragment();
+        searchFragment = new CourseSearchFragment();
 
         getSupportFragmentManager()
                 .beginTransaction()
@@ -52,10 +58,10 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
     }
 
     public void onSearch(String key) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment, planFragment)
-                .commit();
+        searchFragment.setKey(key);
+        if(searchFragment.started) {
+            searchFragment.refresh();
+        }
     }
 
     public void onScheduleClicked() {
@@ -72,12 +78,20 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
         myActionMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment, searchFragment)
+                        .addToBackStack(null)
+                        .commit();
                 return true;
             }
 
             @Override
             public boolean onMenuItemActionCollapse(MenuItem item) {
-                // TODO: change to course plan
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment, planFragment)
+                        .commit();
                 return true;
             }
         });
@@ -99,6 +113,14 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
             }
         });
 
+
+        String key = getIntent().getStringExtra("search_key");
+        if(!TextUtils.isEmpty(key)) {
+            searchView.setQuery(key, false);
+            expandSearch();
+            onSearch(key);
+        }
+
         return true;
     }
 
@@ -117,4 +139,12 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
         searchItem.getActionView().requestFocus();
     }
 
+    public void onCourseAdded(List<Courses.Course> checkedCourses) {
+        // TODO: put Courses to cloud
+        searchItem.collapseActionView();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment, planFragment)
+                .commit();
+    }
 }

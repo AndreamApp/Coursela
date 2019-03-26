@@ -260,6 +260,22 @@ public class API {
         }
     }
 
+    public static CoursePlans putCoursePlan() throws ANError {
+        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_SEARCH_COURSE)
+                .addQueryParameter("key", "软件")
+                .setPriority(Priority.LOW)
+                .setOkHttpClient(withCookie(App.context()));
+
+        ANRequest request = builder.build();
+        ANResponse response = request.executeForObject(CoursePlans.class);
+
+        if (response.isSuccess()) {
+            return (CoursePlans) response.getResult();
+        } else {
+            throw response.getError();
+        }
+    }
+
     public static CourseDetail courseDetail(String code, String no) throws ANError {
         ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_COURSE_DETAIL)
                 .addQueryParameter("code", code)
@@ -290,6 +306,23 @@ public class API {
 
         if (response.isSuccess()) {
             return (TeacherDetail) response.getResult();
+        } else {
+            throw response.getError();
+        }
+    }
+
+    public static Courses searchCourse(String key) throws ANError {
+        ANRequest.GetRequestBuilder builder = AndroidNetworking.get(HOST + URL_SEARCH_COURSE)
+                .addQueryParameter("key", key)
+                .addQueryParameter("page", "1")
+                .setPriority(Priority.LOW)
+                .setOkHttpClient(withCookie(App.context()));
+
+        ANRequest request = builder.build();
+        ANResponse response = request.executeForObject(Courses.class);
+
+        if (response.isSuccess()) {
+            return (Courses) response.getResult();
         } else {
             throw response.getError();
         }
