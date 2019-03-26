@@ -148,7 +148,12 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
     }
 
     public void onCourseAdded(List<Courses.Course> checkedCourses) {
-        if(checkedCourses.size() <= 0) {
+        if(checkedCourses == null || checkedCourses.size() <= 0) {
+            searchItem.collapseActionView();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment, planFragment)
+                    .commit();
             return;
         }
         // TODO: put Courses to cloud

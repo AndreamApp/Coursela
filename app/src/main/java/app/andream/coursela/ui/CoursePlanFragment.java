@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidnetworking.error.ANError;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -34,6 +37,7 @@ public class CoursePlanFragment extends Fragment
     SwipeRefreshLayout refresh;
     RecyclerView planRecyclerView;
     View fab;
+    TextView stateText;
 
     CoursePlanAdapter adapter;
 
@@ -58,6 +62,10 @@ public class CoursePlanFragment extends Fragment
     }
 
     void initViews(View v) {
+        stateText = v.findViewById(R.id.state_text);
+        stateText.setOnClickListener(view -> {
+            onRefresh();
+        });
         refresh = v.findViewById(R.id.refresh);
         refresh.setOnRefreshListener(this);
 
@@ -100,6 +108,14 @@ public class CoursePlanFragment extends Fragment
         refresh.setRefreshing(false);
         if(plans != null && plans.status) {
             adapter.setPlans(plans);
+            stateText.setVisibility(View.GONE);
+            planRecyclerView.setVisibility(View.VISIBLE);
+        }
+        else {
+            stateText.setVisibility(View.VISIBLE);
+            planRecyclerView.setVisibility(View.INVISIBLE);
+            stateText.setText("Please try again!");
+            Snackbar.make(stateText, "Network failed!", Snackbar.LENGTH_SHORT).show();
         }
     }
 
