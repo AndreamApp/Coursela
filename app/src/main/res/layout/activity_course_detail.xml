@@ -1,119 +1,242 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_course_name"
-        android:layout_width="match_parent"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:background="?attr/toolBarColor"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Course Detail"
+        app:titleTextColor="?attr/titleTextColor" />
 
     <LinearLayout
-        android:id="@+id/ll_course_tags"
+        android:id="@+id/ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tv_course_name" >
+        android:layout_height="0dp"
+        android:padding="12dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar">
+
+        <TextView
+            android:id="@+id/tv_course_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Software testing"
+            android:textColor="#333333"
+            android:textSize="24sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/ll_course_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tv_course_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/tag_green"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:text="SE31013"
+                android:textColor="#f0f0f0" />
+
+            <TextView
+                android:id="@+id/tv_academy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/tag_blue"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:text="Software Engineering"
+                android:textColor="#f0f0f0" />
+
+        </LinearLayout>
+
+        <!-- Teacher -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_user" />
+
+            <TextView
+                android:id="@+id/tv_teacher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:focusable="true"
+                android:clickable="true"
+                android:text="Feno"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Classroom -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_position" />
+
+            <TextView
+                android:id="@+id/tv_classroom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Feno"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Student Count -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_users" />
+
+            <TextView
+                android:id="@+id/tv_course_stu_cnt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Feno"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Schedule -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_schedule_dark" />
+
+            <TextView
+                android:id="@+id/tv_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Feno"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Credit -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_degree" />
+
+            <TextView
+                android:id="@+id/tv_credit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Feno"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <!-- Hours -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_time" />
+
+            <TextView
+                android:id="@+id/tv_hours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Feno"
+                android:textColor="#555555"
+                android:textSize="16sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <!-- Teacher -->
-
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        app:layout_constraintTop_toBottomOf="@id/ll_course_tags"
-        app:layout_constraintLeft_toLeftOf="@id/tv_course_name" />
-
-    <TextView
-        android:id="@+id/tv_teacher"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ll_course_tags"
-        app:layout_constraintLeft_toRightOf="@id/icon" />
-
-    <!-- Classroom -->
-
-    <ImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_teacher"
-        app:layout_constraintLeft_toLeftOf="@id/icon"
-        app:layout_constraintRight_toRightOf="@id/icon" />
-
-    <TextView
-        android:id="@+id/tv_classroom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_teacher"
-        app:layout_constraintLeft_toRightOf="@id/icon" />
-
-    <!-- Student Count -->
-
-    <ImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_classroom"
-        app:layout_constraintLeft_toLeftOf="@id/icon"
-        app:layout_constraintRight_toRightOf="@id/icon" />
-
-    <TextView
-        android:id="@+id/tv_student_cnt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_classroom"
-        app:layout_constraintLeft_toRightOf="@id/icon" />
-
-    <!-- Schedule -->
-
-    <ImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_student_cnt"
-        app:layout_constraintLeft_toLeftOf="@id/icon"
-        app:layout_constraintRight_toRightOf="@id/icon" />
-
-    <TextView
-        android:id="@+id/tv_schedule"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_student_cnt"
-        app:layout_constraintLeft_toRightOf="@id/icon" />
-
-    <!-- Credit -->
-
-    <ImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_schedule"
-        app:layout_constraintLeft_toLeftOf="@id/icon"
-        app:layout_constraintRight_toRightOf="@id/icon" />
-
-    <TextView
-        android:id="@+id/tv_credit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_schedule"
-        app:layout_constraintLeft_toRightOf="@id/icon" />
-
-    <!-- Hours -->
-
-    <ImageView
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_credit"
-        app:layout_constraintLeft_toLeftOf="@id/icon"
-        app:layout_constraintRight_toRightOf="@id/icon" />
-
-    <TextView
-        android:id="@+id/tv_hours"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_credit"
-        app:layout_constraintLeft_toRightOf="@id/icon" />
 
 
 </android.support.constraint.ConstraintLayout>
