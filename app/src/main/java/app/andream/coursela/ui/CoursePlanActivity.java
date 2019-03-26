@@ -22,6 +22,7 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
 
     Toolbar toolbar;
     CoursePlanFragment planFragment;
+    MenuItem searchItem;
     // tableFragment
     // searchFragment
 
@@ -67,6 +68,7 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
         getMenuInflater().inflate(R.menu.course_menu, menu);
 
         MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
+        searchItem = myActionMenuItem;
         myActionMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem item) {
@@ -108,6 +110,10 @@ public class CoursePlanActivity extends ResponseActivity<CoursePlans>
                 break;
         }
         return true;
+    }
+
+    public void expandSearch() {
+        searchItem.expandActionView();
     }
 
 }

@@ -101,7 +101,12 @@ public class CoursePlanFragment extends Fragment
         }
     }
 
-    public void onAddClicked() {}
+    public void onAddClicked() {
+        CoursePlanActivity activity = (CoursePlanActivity) getActivity();
+        if(activity != null) {
+            activity.expandSearch();
+        }
+    }
 
     public class PlanTask extends AsyncTask<String, Void, CoursePlans> {
         @Override
