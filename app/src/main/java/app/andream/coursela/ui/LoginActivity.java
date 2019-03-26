@@ -97,7 +97,7 @@ public class LoginActivity extends ResponseActivity<User> {
         isLogining = false;
         if (user != null) {
             if (user.status) {
-                startActivity(new Intent(LoginActivity.this, TableActivity.class));
+                startActivity(new Intent(LoginActivity.this, CoursePlanActivity.class));
                 showProgress(false);
                 finish();
             } else {

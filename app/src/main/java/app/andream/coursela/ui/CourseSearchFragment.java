@@ -156,8 +156,8 @@ public class CourseSearchFragment extends Fragment
     public void setKey(String key) {
         if(!key.equals(this.key)) {
             this.key = key;
-            this.needRefresh = true;
         }
+        this.needRefresh = true;
     }
 
     public class SearchTask extends AsyncTask<String, Void, Courses> {
